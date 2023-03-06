@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Modal, Button, Form } from "react-bootstrap";
 import BlogItem from "../blog-item/BlogItem";
 import { useEffect } from "react";
 const BlogList = (props) => {
@@ -32,7 +32,7 @@ const BlogList = (props) => {
           }}
           key={post.id}
         >
-          <BlogItem key={post.title} {...post} />
+          <BlogItem key={post.title} id = {post.id} {...post} />
         </Col>
       ))}
     </Row>
