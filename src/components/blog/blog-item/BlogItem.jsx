@@ -17,7 +17,7 @@ const BlogItem = (props) => {
     try {
       console.log("submitting")
       let response = await fetch(
-        "http://localhost:3001/files/"+currentBlogPostId+"/single",
+        process.env.REACT_APP_BACK_END+currentBlogPostId+"/single",
         {
           method: "POST",
           body: formData,

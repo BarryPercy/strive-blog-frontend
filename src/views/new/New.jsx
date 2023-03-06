@@ -19,7 +19,7 @@ const NewBlogPost = (props) => {
       "title": formData.get("title"),
       "category": formData.get("category"),
       "content": html,
-      "cover": "http://localhost:3001/img/authors/default-avatar.jpg",
+      "cover": "https://pbs.twimg.com/profile_images/1498641868397191170/6qW2XkuI_400x400.png",//process.env.REACT_APP_BACK_END+"http://localhost:3001/img/authors/default-avatar.jpg",
       "readTime": {
         "value": formData.get("read-time-value"),
         "unit": formData.get("read-time-unit")
@@ -33,7 +33,7 @@ const NewBlogPost = (props) => {
     try {
       console.log("submitting")
       let response = await fetch(
-        "http://localhost:3001/blogPosts",
+        REACT_APP_BACK_END+"/"+blogPosts,
         {
           method: "POST",
           body: JSON.stringify(post),
