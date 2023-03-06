@@ -33,7 +33,7 @@ const NewBlogPost = (props) => {
     try {
       console.log("submitting")
       let response = await fetch(
-        REACT_APP_BACK_END+"/"+blogPosts,
+        process.env.REACT_APP_BACK_END+"blogPosts",
         {
           method: "POST",
           body: JSON.stringify(post),
@@ -43,7 +43,6 @@ const NewBlogPost = (props) => {
         }
       );
       if (response.ok) {
-        "submitted fine"
       } else {
         alert("Fetching went wrong!!!!");
       }

@@ -24,7 +24,6 @@ const BlogItem = (props) => {
         }
       );
       if (response.ok) {
-        "submitted fine"
       } else {
         alert("Fetching went wrong!!!!");
       }
