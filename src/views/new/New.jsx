@@ -31,7 +31,6 @@ const NewBlogPost = (props) => {
     };
     console.log(post)
     try {
-      console.log("submitting")
       let response = await fetch(
         process.env.REACT_APP_BACK_END+"blogPosts",
         {
