@@ -7,7 +7,7 @@ const BlogList = (props) => {
   const fetchPosts = async ()=>{
     try {
       const response = await fetch(
-        process.env.REACT_APP_BACK_END+"blogPosts",
+        process.env.REACT_APP_BACK_END+"/blogPosts",
       );
       console.log(process.env.REACT_APP_BACK_END)
       if (response.ok) {
@@ -33,7 +33,7 @@ const BlogList = (props) => {
           }}
           key={post.id}
         >
-          <BlogItem key={post.title} id = {post.id} {...post} />
+          <BlogItem {...post} key={post.title} id={post.id}  />
         </Col>
       ))}
     </Row>

@@ -10,7 +10,45 @@ const NewBlogPost = (props) => {
     EditorState.createEmpty()
   );
   const [html, setHTML] = useState(null);
-
+  const getAttachment = async (id)=>{
+    try{
+      let response = await fetch(
+        process.env.REACT_APP_BACK_END+"/"+id+"/pdf/attachment"
+      )
+      if (response.ok){
+        const data = response.json();
+        console.log(data)
+      }
+    }catch(error){
+      console.log(error)
+    }
+  }
+  const sendEmail = async (data) =>{
+    const email = {
+      "text":`New article posted by you ${data.author.name}, it is titled ${data.title}`,
+      "html":`<h3>Dear ${data.author.name}</h3>
+        <p>New article posted!</p>`,
+      "subject": `New - ${data.title}`,
+      "recipient": data.author.email
+    }
+    try{
+      let response = await fetch(
+        process.env.REACT_APP_BACK_END+"/authors/register",
+        {
+          method: "POST",
+          body: JSON.stringify(email),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+      if (response.ok){
+        console.log("email sent")
+      }
+    }catch(error) {
+      console.log(error);
+    }
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     
@@ -25,14 +63,15 @@ const NewBlogPost = (props) => {
         "unit": formData.get("read-time-unit")
       },
       "author": {
-        "name": "",
-        "avatar": ""
+        "name": formData.get("author-name"),
+        "avatar": "",
+        "email": formData.get("author-email")
       }
     };
     console.log(post)
     try {
       let response = await fetch(
-        process.env.REACT_APP_BACK_END+"blogPosts",
+        process.env.REACT_APP_BACK_END+"/blogPosts",
         {
           method: "POST",
           body: JSON.stringify(post),
@@ -42,8 +81,11 @@ const NewBlogPost = (props) => {
         }
       );
       if (response.ok) {
+        const data = await response.json();
+        getAttachment(data.id)
+        sendEmail(post);
       } else {
-        alert("Fetching went wrong!!!!");
+        
       }
     } catch (error) {
       console.log(error);
@@ -94,11 +136,17 @@ const NewBlogPost = (props) => {
             </Col>
           </Row>
         </Form.Group>
-        
-                
-        <Form.Group controlId="author-name" className="mt-3">
+        <Form.Group controlId="read-time" className="mt-3">
           <Form.Label>Author</Form.Label>
-          <Form.Control size="md" placeholder="name" name="author-name"/>
+          <Row>
+            <Col lg={2}>
+              <Form.Control size="md" placeholder="value" name="author-name"/>
+            </Col>
+            <Col lg={2}>
+            <Form.Control type="email" size="md" placeholder="email"name="author-email">
+            </Form.Control>
+            </Col>
+          </Row>
         </Form.Group>
         {/* <Form.Group controlId="author-avatar" className="mt-3">
           <Form.Control size="md" placeholder="image-link" name="author-avatar"/>
