@@ -36,6 +36,7 @@ const BlogItem = (props) => {
   const [currentBlogPostId, setCurrentBlogPostId] = useState("")
   const [image, setImage] = useState(undefined);
   const { title, category, cover, author, id, readTime } = props;
+  console.log("item props", props)
   return (
       <>
       <Modal show={show} onHide={handleClose} size="lg">
@@ -74,7 +75,7 @@ const BlogItem = (props) => {
             <Card.Text>{readTime.value} {readTime.unit}</Card.Text>
           </Card.Body>
           <Card.Footer>
-            <BlogAuthor {...author} />
+            <BlogAuthor author={props.authors} />
           </Card.Footer>
         </Card>
      

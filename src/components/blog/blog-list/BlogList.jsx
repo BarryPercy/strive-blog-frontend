@@ -6,9 +6,19 @@ const BlogList = (props) => {
   const [posts,setPosts] = useState([])
   const fetchPosts = async ()=>{
     try {
+      
+      const accessToken = JSON.parse(localStorage.getItem('accessToken'));
+      console.log(accessToken)
       const response = await fetch(
-        process.env.REACT_APP_BACK_END+"/blogPosts",
+        process.env.REACT_APP_BACK_END+"/authors/me/stories",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
+      
       console.log(process.env.REACT_APP_BACK_END)
       if (response.ok) {
         let data = await response.json();
