@@ -25,7 +25,7 @@ const BlogList = (props) => {
   },[])
   return (
     <Row>
-      {posts.map((post) => (
+      {posts.length>0?posts.map((post) => (
         <Col
           md={4}
           style={{
@@ -35,7 +35,7 @@ const BlogList = (props) => {
         >
           <BlogItem {...post} key={post.title} id={post.id}  />
         </Col>
-      ))}
+      )):""}
     </Row>
   );
 };
